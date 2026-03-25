@@ -41,10 +41,11 @@ COPY --from=builder --chown=node:node /app/apps/${SCOPE}/.next/static ./apps/${S
 COPY --from=builder --chown=node:node /app/apps/${SCOPE}/public ./apps/${SCOPE}/public
 
 
-COPY scripts/${SCOPE}-entrypoint.sh ./
-RUN chmod +x ./${SCOPE}-entrypoint.sh
+COPY scripts/builder-entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 USER node
-ENTRYPOINT ./${SCOPE}-entrypoint.sh
+ENTRYPOINT ENTRYPOINT ./entrypoint.sh
 
 EXPOSE 3000
 ENV PORT=3000
+Corrigir entrypoint no Dockerfile
