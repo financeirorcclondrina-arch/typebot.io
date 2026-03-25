@@ -5,7 +5,7 @@ FROM oven/bun:${BUN_VERSION}-slim AS bun
 
 FROM node:24-bullseye-slim AS base
 
-COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
+
 RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
 
 RUN apt-get update -qq \
