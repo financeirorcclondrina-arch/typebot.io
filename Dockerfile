@@ -31,7 +31,7 @@ COPY --from=bun /usr/local/bin/bunx /usr/local/bin/bunx
 COPY . .
 
 RUN SENTRYCLI_SKIP_DOWNLOAD=1 bun install --frozen-lockfile
-RUN SKIP_ENV_CHECK=true NEXT_PUBLIC_VIEWER_URL=http://localhost bunx nx build ${SCOPE}
+RUN DATABASE_URL=postgresql://user:pass@localhost:5432/db SKIP_ENV_CHECK=true NEXT_PUBLIC_VIEWER_URL=http://localhost bunx nx build ${SCOPE}
 RUN DATABASE_URL=postgresql:// bunx nx db:generate prisma
 
 # ================== RELEASE ======================
