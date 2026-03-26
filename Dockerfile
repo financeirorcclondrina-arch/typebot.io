@@ -44,7 +44,7 @@ COPY --from=builder /app/packages/prisma/postgresql ./packages/prisma/postgresql
 COPY --from=builder --chown=node:node /app/apps/${SCOPE}/.next/standalone ./
 COPY --from=builder --chown=node:node /app/apps/${SCOPE}/.next/static ./apps/${SCOPE}/.next/static
 COPY --from=builder --chown=node:node /app/apps/${SCOPE}/public ./apps/${SCOPE}/public
-
+COPY --from=builder --chown=node:node /app/apps/${SCOPE}/public ./public
 COPY scripts/builder-entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh && chown node:node ./entrypoint.sh
 
