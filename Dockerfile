@@ -6,7 +6,7 @@ FROM oven/bun:${BUN_VERSION}-slim AS bun
 # ================= BASE ==========================
 FROM node:24-bullseye-slim AS base
 
-# 👉 Copia o bun corretamente para a base
+# 👉 Copia o bun corretamente
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 COPY --from=bun /usr/local/bin/bunx /usr/local/bin/bunx
 
@@ -24,9 +24,9 @@ WORKDIR /app
 
 # =============== INSTALL & BUILD =================
 FROM base AS builder
-ARG SCOPE
+ARG SCOPE=builder
 
-# 👉 garante que bun existe no builder também
+# 👉 garante bun no builder
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 COPY --from=bun /usr/local/bin/bunx /usr/local/bin/bunx
 
@@ -38,7 +38,7 @@ RUN DATABASE_URL=postgresql:// bunx nx db:generate prisma
 
 # ================== RELEASE ======================
 FROM base AS release
-ARG SCOPE
+ARG SCOPE=builder
 ENV SCOPE=${SCOPE}
 
 COPY --from=builder /app/node_modules ./node_modules
