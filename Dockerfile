@@ -49,4 +49,5 @@ ENTRYPOINT ["./entrypoint.sh"]
 
 EXPOSE 3000
 ENV PORT=3000
-Corrigir entrypoint no Dockerfile
+
+
